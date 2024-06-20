@@ -8,6 +8,8 @@ import "rc-slider/assets/index.css";
 import Footer from "@/components/Footer";
 import FooterNav from "@/components/FooterNav";
 import { Metadata } from "next";
+import { getLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,21 +25,23 @@ export const metadata: Metadata = {
     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: any;
 }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className={poppins.className}>
+    <html lang={locale} className={poppins.className}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <ClientCommons />
-        <SiteHeader />
-        {children}
-        <FooterNav />
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <ClientCommons />
+          <SiteHeader />
+          {children}
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
