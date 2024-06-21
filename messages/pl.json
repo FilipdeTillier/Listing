@@ -1,4 +1,19 @@
 {
   "h1": "Oferty pracy dla inżynierów.",
-  "add-offer": "Dodaj ofertę"
+  "add-offer": "Dodaj ofertę",
+  "salary": "Wynagrodzenie",
+  "min": "Min",
+  "max": "Max",
+  "currency": "PLN",
+  "city": "Miasto",
+  "description": "Opis",
+  "company": "Firma",
+  "email": "Email",
+  "phone": "Telefon",
+  "confirm": "Zatwierdź",
+  "cancel": "Anuluj",
+  "edit": "Edytuj",
+  "delete": "Usuń",
+  "location": "Lokalizacja",
+  "brand": "Branża"
 }
