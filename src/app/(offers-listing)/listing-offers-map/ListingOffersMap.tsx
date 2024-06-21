@@ -7,27 +7,24 @@ import { DEMO_EXPERIENCES_LISTINGS } from "@/data/listings";
 import ButtonClose from "@/shared/ButtonClose";
 import Checkbox from "@/shared/Checkbox";
 import Pagination from "@/shared/Pagination";
-import TabFilters from "./TabFilters";
-import Heading2 from "@/shared/Heading2";
 import ExperiencesCardH from "@/components/ExperiencesCardH";
+import ListingOffersFilter from "../listing-offers-filters/ListingOffersFilters";
 
 const DEMO_EXPERIENCES = DEMO_EXPERIENCES_LISTINGS.filter((_, i) => i < 12);
 
-export interface SectionGridHasMapProps {}
+export interface ListingOffersMapProps {}
 
-const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
+const ListingOffersMap: FC<ListingOffersMapProps> = () => {
   const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1);
   const [showFullMapFixed, setShowFullMapFixed] = useState(false);
 
   return (
     <div>
+      <div className="w-full flex-shrink-0 xl:px-8 px-2">
+        <ListingOffersFilter />
+      </div>
       <div className="relative flex min-h-screen mt-10 text-center">
-        {/* CARDSSSS */}
-        <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 ">
-          <Heading2 heading="Oferty pracy dla inżynierów." />
-          <div className="mb-8 lg:mb-11">
-            <TabFilters />
-          </div>
+        <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 px-2">
           <div className="grid grid-cols-1 gap-8">
             {DEMO_EXPERIENCES.map((item) => (
               <div
@@ -100,4 +97,4 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
   );
 };
 
-export default SectionGridHasMap;
+export default ListingOffersMap;

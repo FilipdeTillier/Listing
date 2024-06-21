@@ -174,6 +174,14 @@ export const NAVIGATION_DEMO: NavItemType[] = [
   },
   {
     id: ncNanoId(),
+    href: "/add-offer",
+    name: "Add offer",
+    type: "dropdown",
+    children: demoChildMenus,
+    isNew: true,
+  },
+  {
+    id: ncNanoId(),
     href: "/",
     name: "Five columns",
     type: "megaMenu",
