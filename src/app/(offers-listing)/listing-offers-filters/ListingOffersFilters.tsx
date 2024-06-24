@@ -1,31 +1,41 @@
-import { useFormik } from "formik";
-import React from "react";
+import { useFormik } from 'formik';
+import { useRouter, useSearchParams } from 'next/navigation';
+import queryString from 'query-string';
+import React, { useEffect, useMemo } from 'react';
 
-import FilterBrand from "@/components/FilterBrand/FilterBrand";
-import FilterLocation from "@/components/FilterLocation/FilterLocation";
-import FilterPriceRange from "@/components/FilterPriceRange/FilterPriceRange";
+import FilterBrand from '@/components/FilterBrand/FilterBrand';
+import FilterLocation from '@/components/FilterLocation/FilterLocation';
+import FilterPriceRange from '@/components/FilterPriceRange/FilterPriceRange';
+import { Skeleton } from '@/shared/Skeleton/Skeleton';
 
 type InitialValuesTypes = {
   location: string | null;
   brand: string | null;
-  salary: {
-    min: number | null;
-    max: number | null;
-  };
+  minSalary: string | null;
+  maxSalary: string | null;
 };
-
-const initialValues: InitialValuesTypes = {
-  location: null,
-  brand: "",
-  salary: {
-    min: null,
-    max: null,
-  },
-};
-
-type InitialValuesKeys = keyof typeof initialValues;
 
 const ListingOffersFilter = () => {
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+
+  let {
+    brand = null,
+    location = null,
+    minSalary = null,
+    maxSalary = null,
+  } = useMemo(() => queryString.parse(searchParams.toString()), []);
+
+  const initialValues: InitialValuesTypes = useMemo(
+    () => ({
+      location: typeof location === "string" ? location : null,
+      brand: typeof brand === "string" ? brand : null,
+      minSalary: typeof minSalary === "string" ? minSalary : null,
+      maxSalary: typeof maxSalary === "string" ? maxSalary : null,
+    }),
+    []
+  );
+
   const { handleSubmit, values, setFieldValue } = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -33,27 +43,52 @@ const ListingOffersFilter = () => {
     },
   });
 
-  const resetField = (fieldName: InitialValuesKeys) =>
-    setFieldValue(fieldName, initialValues[fieldName]);
+  const onResetField = (fieldName: keyof InitialValuesTypes) =>
+    setFieldValue(fieldName, null);
+
+  useEffect(() => {
+    if (typeof brand === "string") setFieldValue("brand", brand);
+    if (typeof location === "string") setFieldValue("location", location);
+    if (typeof minSalary === "string") setFieldValue("minSalary", minSalary);
+    if (typeof maxSalary === "string") setFieldValue("maxSalary", maxSalary);
+  }, []);
+
+  useEffect(() => {
+    const queries = queryString.stringify(values, {
+      skipEmptyString: true,
+      skipNull: true,
+    });
+    if (queries) {
+      replace(`/?${queries}`);
+    } else {
+      replace("/");
+    }
+  }, [replace, values]);
 
   return (
     <form onSubmit={handleSubmit} className="flex lg:space-x-4">
       <div className="hidden lg:flex space-x-4">
         <FilterBrand
           value={values.brand}
-          onReset={() => resetField("brand")}
+          onReset={() => onResetField("brand")}
           onChange={(brandValue) => setFieldValue("brand", brandValue)}
         />
         <FilterPriceRange
-          min={values.salary.min}
-          max={values.salary.max}
-          onChange={(rangeValues) => setFieldValue("salary", rangeValues)}
-          onReset={() => resetField("salary")}
+          min={values.minSalary !== null ? +values.minSalary : null}
+          max={values.maxSalary !== null ? +values.maxSalary : null}
+          onChange={({ min, max }) => {
+            setFieldValue("minSalary", min);
+            setFieldValue("maxSalary", max);
+          }}
+          onReset={() => {
+            onResetField("maxSalary");
+            onResetField("minSalary");
+          }}
         />
         <FilterLocation
           value={values.location}
           onChange={(value) => setFieldValue("location", value)}
-          onReset={() => resetField("location")}
+          onReset={() => onResetField("location")}
         />
       </div>
       <div className="flex lg:hidden space-x-4"></div>
@@ -62,5 +97,3 @@ const ListingOffersFilter = () => {
 };
 
 export default ListingOffersFilter;
-
-// Duplication of C:\Users\fde\Desktop\Listing\ChisfisNextjs\src\app\(real-estate-listings)\TabFilters.tsx

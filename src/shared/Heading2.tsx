@@ -1,19 +1,12 @@
-import React from "react";
-import { ReactNode } from "react";
+import { useTranslations } from 'next-intl';
+import React, { ReactNode } from 'react';
 
-export interface Heading2Props {
-  heading?: ReactNode;
-  subHeading?: ReactNode;
-  className?: string;
-}
+const Heading2: React.FC = ({}) => {
+  const t = useTranslations();
 
-const Heading2: React.FC<Heading2Props> = ({
-  className = "",
-  heading = "Stays in Tokyo",
-}) => {
   return (
-    <div className={`${className}`}>
-      <h2 className="text-4xl font-semibold">{heading}</h2>
+    <div>
+      <h2 className="text-4xl font-semibold">{t("h1")}</h2>
     </div>
   );
 };

@@ -1,0 +1,28 @@
+{
+  "services": [
+    {
+      "id": "1",
+      "name": "service1",
+      "location": "Warsaw",
+      "minSalary": 5000,
+      "maxSalary": 10000,
+      "brand": "Logistic"
+    },
+    {
+      "id": "2",
+      "name": "service1",
+      "location": "warsaw",
+      "minSalary": 5000,
+      "maxSalary": 10000,
+      "brand": "Logistic"
+    },
+    {
+      "id": "3",
+      "name": "service2",
+      "location": "Poznan",
+      "minSalary": 4000,
+      "maxSalary": 8000,
+      "brand": "Logistic"
+    }
+  ]
+}
