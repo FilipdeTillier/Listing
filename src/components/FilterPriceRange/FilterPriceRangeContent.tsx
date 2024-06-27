@@ -80,7 +80,7 @@ export const FilterPriceRangeContent: React.FC<
                 <span className="font-medium">{t("salary")}</span>
                 <Slider
                   range
-                  min={min || undefined}
+                  min={0}
                   max={MAX_SALARY}
                   defaultValue={defaultValues}
                   allowCross={false}

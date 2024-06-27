@@ -15,5 +15,19 @@
   "edit": "Edytuj",
   "delete": "Usuń",
   "location": "Lokalizacja",
-  "brand": "Branża"
+  "brand": "Branża",
+  "construction": "Budownictwo",
+  "electricity": "Elektryka i Elektronika",
+  "it": "IT",
+  "production": "Produkcja",
+  "transport": "Transport i Logistyka",
+  "mechanics": "Mechanika i Konstrukcja",
+  "biomedical": "Inżynieria Biomedyczna",
+  "automation": "Automatyka i Robotyka",
+  "other": "Inne",
+  "warsaw": "Warszawa",
+  "cracow": "Kraków",
+  "wroclaw": "Wrocław",
+  "gdansk": "Gdańsk",
+  "poznan": "Poznań"
 }
