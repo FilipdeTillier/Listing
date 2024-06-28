@@ -1,24 +1,18 @@
-import cn from "classnames";
-import { useTranslations } from "next-intl";
-import { FC, Fragment, useEffect, useMemo, useState } from "react";
+import cn from 'classnames';
+import { useTranslations } from 'next-intl';
+import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 
-import { buttonBorderClasses } from "@/constant/classNames";
-import ButtonPrimary from "@/shared/ButtonPrimary";
-import ButtonThird from "@/shared/ButtonThird";
-import { Popover, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { BRAND } from '@/api/services/services';
+import { buttonBorderClasses } from '@/constant/classNames';
+import ButtonPrimary from '@/shared/ButtonPrimary';
+import ButtonThird from '@/shared/ButtonThird';
+import { Popover, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
-const brands = [
-  { label: "Budownictwo", value: "construction" },
-  { label: "Elektryka i Elektronika", value: "electricity" },
-  { label: "IT", value: "it" },
-  { label: "Produkcja", value: "production" },
-  { label: "Transport i Logistyka", value: "transport" },
-  { label: "Mechanika i Konstrukcja", value: "mechanics" },
-  { label: "Inżynieria Biomedyczna", value: "biomedical" },
-  { label: "Automatyka i Robotyka", value: "automation" },
-  { label: "Inne", value: "other" },
-];
+const brands = Object.values(BRAND).map((key) => ({
+  label: key.toLowerCase(),
+  value: key.toLowerCase(),
+}));
 
 type FilterBrandContentProps = {
   open: boolean;
@@ -59,7 +53,7 @@ export const FilterBrandContent: FC<FilterBrandContentProps> = ({
       >
         {salaryIsNotNull ? (
           <>
-            <span>{locationLabel}</span>
+            <span>{t(locationLabel)}</span>
             <span
               onClick={(e) => {
                 e.preventDefault();
@@ -103,7 +97,7 @@ export const FilterBrandContent: FC<FilterBrandContentProps> = ({
                     )}
                     type="button"
                   >
-                    {label}
+                    {t(label)}
                   </ButtonThird>
                 ))}
               </div>

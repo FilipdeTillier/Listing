@@ -1,20 +1,22 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import AnyReactComponent from "@/components/AnyReactComponent/AnyReactComponent";
-import GoogleMapReact from "google-map-react";
-import { DEMO_EXPERIENCES_LISTINGS } from "@/data/listings";
-import ButtonClose from "@/shared/ButtonClose";
-import Checkbox from "@/shared/Checkbox";
-import Pagination from "@/shared/Pagination";
-import ExperiencesCardH from "@/components/ExperiencesCardH";
-import ListingOffersFilter from "../listing-offers-filters/ListingOffersFilters";
+import React, { FC, useState } from 'react';
+
+import { TService } from '@/api/services/services';
+import { DEMO_EXPERIENCES_LISTINGS } from '@/data/listings';
+import Pagination from '@/shared/Pagination';
+
+import ListingOffersFilter from '../listing-offers-filters/ListingOffersFilters';
+import { OffersListing } from '../offers-listing/OffersListing';
+import { OffersMap } from '../offers-map/OffersMap';
 
 const DEMO_EXPERIENCES = DEMO_EXPERIENCES_LISTINGS.filter((_, i) => i < 12);
 
-export interface ListingOffersMapProps {}
+export interface ListingOffersMapProps {
+  services: TService[];
+}
 
-const ListingOffersMap: FC<ListingOffersMapProps> = () => {
+const ListingOffersMap: FC<ListingOffersMapProps> = ({ services }) => {
   const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1);
   const [showFullMapFixed, setShowFullMapFixed] = useState(false);
 
@@ -25,16 +27,11 @@ const ListingOffersMap: FC<ListingOffersMapProps> = () => {
       </div>
       <div className="relative flex min-h-screen mt-10 text-center">
         <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 px-2">
-          <div className="grid grid-cols-1 gap-8">
-            {DEMO_EXPERIENCES.map((item) => (
-              <div
-                key={item.id}
-                onMouseEnter={() => setCurrentHoverID((_) => item.id)}
-                onMouseLeave={() => setCurrentHoverID((_) => -1)}
-              >
-                <ExperiencesCardH data={item} />
-              </div>
-            ))}
+          <div className="grid grid-cols-1 gap-4">
+            <OffersListing
+              services={services}
+              setCurrentHoverID={setCurrentHoverID}
+            />
           </div>
           <div className="flex mt-16 justify-center items-center">
             <Pagination />
@@ -49,49 +46,7 @@ const ListingOffersMap: FC<ListingOffersMapProps> = () => {
           <span>Show map</span>
         </div>
 
-        {/* MAPPPPP */}
-        <div
-          className={`xl:flex-grow xl:static xl:block ${
-            showFullMapFixed ? "fixed inset-0 z-50" : "hidden"
-          }`}
-        >
-          {showFullMapFixed && (
-            <ButtonClose
-              onClick={() => setShowFullMapFixed(false)}
-              className="bg-white absolute z-50 left-3 top-3 shadow-lg rounded-xl w-10 h-10"
-            />
-          )}
-
-          <div className="fixed xl:sticky top-0 xl:top-[88px] left-0 w-full h-full xl:h-[calc(100vh-88px)] rounded-md overflow-hidden">
-            <div className="absolute bottom-5 left-3 lg:bottom-auto lg:top-2.5 lg:left-1/2 transform lg:-translate-x-1/2 py-2 px-4 bg-white shadow-xl z-10 rounded-2xl min-w-max">
-              <Checkbox
-                className="text-xs xl:text-sm text-neutral-800"
-                name="xx"
-                label="Search as I move the map"
-              />
-            </div>
-            {/* BELLOW IS MY GOOGLE API KEY -- PLEASE DELETE AND TYPE YOUR API KEY */}
-
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
-              }}
-              yesIWantToUseGoogleMapApiInternals
-              defaultZoom={12}
-              defaultCenter={DEMO_EXPERIENCES[0].map}
-            >
-              {DEMO_EXPERIENCES.map((item) => (
-                <AnyReactComponent
-                  isSelected={currentHoverID === item.id}
-                  key={item.id}
-                  lat={item.map.lat}
-                  lng={item.map.lng}
-                  experiences={item}
-                />
-              ))}
-            </GoogleMapReact>
-          </div>
-        </div>
+        <OffersMap currentHoverID={currentHoverID} services={services} />
       </div>
     </div>
   );

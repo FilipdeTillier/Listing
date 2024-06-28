@@ -1,20 +1,18 @@
-import cn from "classnames";
-import { useTranslations } from "next-intl";
-import { FC, Fragment, useEffect, useMemo, useState } from "react";
+import cn from 'classnames';
+import { useTranslations } from 'next-intl';
+import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 
-import { buttonBorderClasses } from "@/constant/classNames";
-import ButtonPrimary from "@/shared/ButtonPrimary";
-import ButtonThird from "@/shared/ButtonThird";
-import { Popover, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { LOCATIONS } from '@/api/services/services';
+import { buttonBorderClasses } from '@/constant/classNames';
+import ButtonPrimary from '@/shared/ButtonPrimary';
+import ButtonThird from '@/shared/ButtonThird';
+import { Popover, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
-const locations = [
-  { label: "Warszawa", value: "warsaw" },
-  { label: "Kraków", value: "cracow" },
-  { label: "Wrocław", value: "wroclaw" },
-  { label: "Poznań", value: "poznan" },
-  { label: "Gdańsk", value: "gdansk" },
-];
+const locations = Object.values(LOCATIONS).map((key) => ({
+  label: key.toLowerCase(),
+  value: key.toLowerCase(),
+}));
 
 type FilterLocationContentProps = {
   open: boolean;
@@ -55,7 +53,7 @@ export const FilterLocationContent: FC<FilterLocationContentProps> = ({
       >
         {salaryIsNotNull ? (
           <>
-            <span>{locationLabel}</span>
+            <span>{t(locationLabel)}</span>
             <span
               onClick={(e) => {
                 e.preventDefault();
@@ -99,7 +97,7 @@ export const FilterLocationContent: FC<FilterLocationContentProps> = ({
                     )}
                     type="button"
                   >
-                    {label}
+                    {t(label)}
                   </ButtonThird>
                 ))}
               </div>
