@@ -22,10 +22,7 @@ async function PageHome(data: PageHomeProps) {
   const { searchParams } = data;
   const projects = await getProjects(searchParams);
   return (
-    <main className="nc-PageHome relative overflow-hidden">
-      <div className="flex w-full justify-center items-center my-4 lg:my-10 mx-auto text-center">
-        <Heading2 />
-      </div>
+    <main className="nc-PageHome relative">
       <div className="relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
         <ListingOffersMap services={projects} />
       </div>

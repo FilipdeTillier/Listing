@@ -53,7 +53,6 @@ const jsonServerMaper = ({
 
 export async function getProjects(params: PageHomeQueryParams) {
   const jsonServerValue = jsonServerMaper(params);
-  console.log(jsonServerValue);
   const stringParams = queryString.stringify(jsonServerValue);
 
   const { NEXT_PUBLIC_BACKEND_URL = "http://localhost:3004/services" } =

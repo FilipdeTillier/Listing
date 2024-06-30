@@ -22,19 +22,14 @@ const ListingOffersMap: FC<ListingOffersMapProps> = ({ services }) => {
 
   return (
     <div>
-      <div className="w-full flex-shrink-0 xl:px-8 px-2">
-        <ListingOffersFilter />
-      </div>
-      <div className="relative flex min-h-screen mt-10 text-center">
-        <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 px-2">
+      <ListingOffersFilter />
+      <div className="relative flex min-h-screen mt-16 md:mt-20 text-center">
+        <div className="min-h-screen w-full xl:w-2/3 2xl:w-1/2 flex-shrink-0 xl:px-8 px-2">
           <div className="grid grid-cols-1 gap-4">
             <OffersListing
               services={services}
               setCurrentHoverID={setCurrentHoverID}
             />
-          </div>
-          <div className="flex mt-16 justify-center items-center">
-            <Pagination />
           </div>
         </div>
 
@@ -46,7 +41,12 @@ const ListingOffersMap: FC<ListingOffersMapProps> = ({ services }) => {
           <span>Show map</span>
         </div>
 
-        <OffersMap currentHoverID={currentHoverID} services={services} />
+        <OffersMap
+          showFullMapFixed={showFullMapFixed}
+          setShowFullMapFixed={setShowFullMapFixed}
+          currentHoverID={currentHoverID}
+          services={services}
+        />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const OfferItem: FC<OfferItemProps> = ({ className = "", data }) => {
       className={`shadow-md nc-OfferItem group relative bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-700 rounded-md overflow-hidden ${className}`}
     >
       <Link href={`/about`} className="absolute inset-0" />
-      <div className="md:flex md:flex-row">
+      <div className="flex">
         <div>
           <img src={logoUrl} alt={company} />
         </div>

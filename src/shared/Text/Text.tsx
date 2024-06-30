@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { FC } from 'react';
 
-export type TextSize = "superSmall" | "small" | "medium" | "large";
+export type TextSize = "superSmall" | "small" | "medium" | "large" | "xlarge";
 
 type TextProps = {
   className?: string;
@@ -15,6 +15,7 @@ export const SIZES = {
   small: "text-xs",
   medium: "text-sm",
   large: "text-md",
+  xlarge: "text-lg",
 };
 
 export const Text: FC<TextProps> = ({

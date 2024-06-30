@@ -66,33 +66,35 @@ const ListingOffersFilter = () => {
   }, [replace, values]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex lg:space-x-4">
-      <div className="hidden lg:flex space-x-4">
-        <FilterBrand
-          value={values.brand}
-          onReset={() => onResetField("brand")}
-          onChange={(brandValue) => setFieldValue("brand", brandValue)}
-        />
-        <FilterPriceRange
-          min={values.minSalary !== null ? +values.minSalary : null}
-          max={values.maxSalary !== null ? +values.maxSalary : null}
-          onChange={({ min, max }) => {
-            setFieldValue("minSalary", min);
-            setFieldValue("maxSalary", max);
-          }}
-          onReset={() => {
-            onResetField("maxSalary");
-            onResetField("minSalary");
-          }}
-        />
-        <FilterLocation
-          value={values.location}
-          onChange={(value) => setFieldValue("location", value)}
-          onReset={() => onResetField("location")}
-        />
-      </div>
-      <div className="flex lg:hidden space-x-4"></div>
-    </form>
+    <div className="flex items-center box-border fixed top-20 w-full left-0 right-0 z-40 bg-white xl:px-8 px-2 h-16 md:h-20">
+      <form onSubmit={handleSubmit} className="flex lg:space-x-4">
+        <div className="flex space-x-4">
+          <FilterBrand
+            value={values.brand}
+            onReset={() => onResetField("brand")}
+            onChange={(brandValue) => setFieldValue("brand", brandValue)}
+          />
+          <FilterPriceRange
+            min={values.minSalary !== null ? +values.minSalary : null}
+            max={values.maxSalary !== null ? +values.maxSalary : null}
+            onChange={({ min, max }) => {
+              setFieldValue("minSalary", min);
+              setFieldValue("maxSalary", max);
+            }}
+            onReset={() => {
+              onResetField("maxSalary");
+              onResetField("minSalary");
+            }}
+          />
+          <FilterLocation
+            value={values.location}
+            onChange={(value) => setFieldValue("location", value)}
+            onReset={() => onResetField("location")}
+          />
+        </div>
+        <div className="flex lg:hidden space-x-4"></div>
+      </form>
+    </div>
   );
 };
 
